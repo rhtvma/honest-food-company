@@ -1,0 +1,31 @@
+<form>
+    <div class="form-group">
+        <label for="address">Enter address</label>
+        <input type="text"
+               class="form-control"
+               id="address"
+               name="address"
+               [(ngModel)]="address"
+               placeholder="Enter address">
+    </div>
+    <button type="button"
+            (click)="getDeliveryAreas()"
+            class="btn btn-primary">Submit
+    </button>
+</form>
+<br/>
+<br/>
+<hr/>
+
+<div id="map" class="map"></div>
+
+
+<br/>
+<br/>
+
+<hr/>
+<div *ngIf="coordinates.length>0">
+    <strong>Co-Ordinates Coming from server</strong>
+    {{coordinates|json}}
+</div>
+
