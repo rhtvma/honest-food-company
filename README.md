@@ -1,4 +1,4 @@
-# Honese Food Company
+# Honest Food Company
 
 
 ## Server
