@@ -28,6 +28,7 @@ import {fromLonLat} from 'ol/proj';
 export class GoogleMapComponent implements OnInit, AfterViewInit {
     address: any = {};
     coordinates: Array<any> = [];
+    orgCoordinates: Array<any> = [];
     center: Array<any> = [];
     geojsonObject: any;
 
@@ -76,7 +77,7 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
             .subscribe(
                 (result: { data: Array<any>, message: any, status: number }) => {
                     if (result.status === 1) {
-                        // this.convertCoordinates(result.data);
+                        this.orgCoordinates = result.data;
                         this.convertCoordinates(result.data);
                         // this.coordinates = [[-5e6, 6e6], [-5e6, 8e6], [-3e6, 8e6],  [-3e6, 6e6], [-5e6, 6e6]];
                         this._toastr.success(`Request Successful`, `${this.coordinates.length} Co-ordinates found`);

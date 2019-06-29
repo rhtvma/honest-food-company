@@ -1,6 +1,3 @@
-/**
- * Created by rohit on 06/29/2019.
- */
 let fs = require('fs'),
     path = require('path'),
     Promise = require('bluebird'),

@@ -2,12 +2,28 @@
 
 
 ## Server
-Run `npm start ` for a server. Navigate to `http://localhost:3019/`.
+Run `npm start ` for a server. 
+Navigate to `http://localhost:3019/`.
     
     In case of any error Please Run `npm install` then `node app.js`
     
     
-## Public - frontend
+### : information 
+    
+    1: Extracting date from : honese-food-company\services\data\DeliveryAreas.kml
+    
+    
+    
+    
+
+
+    
+    
+    
+## Public - frontend 
+   
+   ##### Path : honese-food-company\public
+   ##### Written in Angular 6
 
     Address Must be correct i.e. : 
      

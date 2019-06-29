@@ -1,6 +1,6 @@
 <form>
     <div class="form-group">
-        <label for="address">Enter address</label>
+        <label for="address">Enter address : </label>
         <input type="text"
                class="form-control"
                id="address"
@@ -8,9 +8,12 @@
                [(ngModel)]="address"
                placeholder="Enter address">
     </div>
+    <br/>
     <button type="button"
             (click)="getDeliveryAreas()"
-            class="btn btn-primary">Submit
+            class="btn btn-primary"
+            style="width: 142px;"
+    >Submit
     </button>
 </form>
 <br/>
@@ -24,8 +27,10 @@
 <br/>
 
 <hr/>
-<div *ngIf="coordinates.length>0">
-    <strong>Co-Ordinates Coming from server</strong>
-    {{coordinates|json}}
+<div *ngIf="orgCoordinates.length>0">
+    <strong>Co-ordinates Coming from</strong>
+    <p>LINK : https://drive.google.com/file/d/1UQWDO-ObrcOE_IIjxrk3JBA-vv1gHMy4/view </p>
+
+    {{orgCoordinates|json}}
 </div>
 
