@@ -1,5 +1,9 @@
 # Honest Food Company
 
+# Project Screenshots
+
+![alt text](https://github.com/rhtvma/honest-food-company/blob/master/assets/sample.JPG)
+
 
 ## Server
 Run `npm start ` for a server. 
