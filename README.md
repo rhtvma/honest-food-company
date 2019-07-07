@@ -36,6 +36,4 @@ Navigate to `http://localhost:3019/`.
      
     Address must match to these otherwise it will simply show the error toster.
     
-    
-    
-##### Note : Due to "licence key limit exceed" Issue i am not able to work on Google map API, However i am using openlayer maps, but co-ordinates are not working as per expectations, but i am able to draw the polygons for every valid requests.
+   
