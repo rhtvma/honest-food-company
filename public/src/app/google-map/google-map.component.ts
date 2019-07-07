@@ -19,6 +19,7 @@ import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer.js';
 import {OSM, Vector as VectorSource} from 'ol/source.js';
 
 import {fromLonLat} from 'ol/proj';
+import {toStringXY} from 'ol/coordinate';
 @Component({
     selector: 'app-google-map',
     templateUrl: './google-map.component.html',
@@ -65,8 +66,7 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.address = '';
-        // this.renderOLMap();
+        this.address = 'Stumpergasse 51, 1060 Vienna';
     }
 
     getDeliveryAreas() {
@@ -79,10 +79,9 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
                     if (result.status === 1) {
                         this.orgCoordinates = result.data;
                         this.convertCoordinates(result.data);
-                        // this.coordinates = [[-5e6, 6e6], [-5e6, 8e6], [-3e6, 8e6],  [-3e6, 6e6], [-5e6, 6e6]];
                         this._toastr.success(`Request Successful`, `${this.coordinates.length} Co-ordinates found`);
-
                     } else {
+                        this.convertCoordinates([]);
                         this._toastr.error(`${result.message}`, `Nothing to process`);
                     }
                 },
@@ -94,32 +93,18 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        // this.map.setTarget('map');
     }
 
     ngOnDestroy() {
     };
 
-    convertCoordinates(data) {
-        debugger;
-        this.center = fromLonLat(data[0]);
-        this.coordinates = data.map((val) => {
-            return fromLonLat(val);
-        });
-        this.renderOLMap();
-    }
-
     renderOLMap() {
-        // this.view = new OlView({
-        //     center: fromLonLat([6.661594, 50.433237]),
-        //     zoom: 30
-        // });
         this.geojsonObject = {
             'type': 'FeatureCollection',
             'crs': {
                 'type': 'name',
                 'properties': {
-                    'name': 'EPSG:3857'
+                    'name': 'EPSG:3857',
                 }
             },
             'features': [{
@@ -146,33 +131,34 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
             center: this.center,
             zoom: 12
         });
+        if (!this.map) {
+            this.map = new Map({
+                layers: [
+                    new TileLayer({
+                        source: new OSM()
+                    }),
+                    this.layer],
+                target: 'map',
+                view: view
+            });
+        } else {
+            let l = this.map.getLayers().getArray()[1];
+            l.setSource(this.source);
+        }
+    }
 
-        this.map = new Map({
-            layers: [
-                new TileLayer({
-                    source: new OSM()
-                }),
-                this.layer],
-            target: 'map',
-            view: view
-        });
+    convertCoordinates(data) {
+        if (data.length > 0) {
+            const center = data[0];
+            this.center = fromLonLat([parseFloat(center[0]), parseFloat(center[1])]);
+            this.coordinates = data.map((val) => {
+                return fromLonLat([parseFloat(val[0]), parseFloat(val[1])]);
+            });
+        } else {
+            this.center = fromLonLat([16.3156304, 48.1712003]);
+            this.coordinates = [];
+        }
+
+        this.renderOLMap();
     }
 }
-
-
-/*
- customPaths: Array<any> = [
- [16.377182, 48.186919],
- [16.3419914, 48.1805096],
- [16.3505745, 48.1690622],
- [16.3608742, 48.1508555],
- [16.408596, 48.1410052],
- [16.4446449, 48.1525734],
- [16.453743, 48.1778769],
- [16.4232625, 48.1880656],
- [16.386731, 48.177247],
- [16.385551, 48.179364],
- [16.384886, 48.184458],
- [16.377182, 48.186919]
- ]
- * */
